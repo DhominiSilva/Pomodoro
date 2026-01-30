@@ -6,6 +6,32 @@ const textarea = document.querySelector('.app__form-textarea'); // estou selecio
 
 const tarefas = []; // array para armazenar as tarefas
 
+function criarElementoTarefa(tarefa){ // função para criar um elemento de tarefa
+    const li = document.createElement('li'); // cria um elemento li
+    li.classList.add('app__section-task-list-item'); // adiciona a classe ao elemento li
+
+    const svg = document.createElement('svg'); // cria um elemento svg
+    svg.innerHTML = `
+        <svg>
+            <svg class="app__section-task-icon-status" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="12" fill="#FFF"></circle>
+                <path d="M9 16.1719L19.5938 5.57812L21 6.98438L9 18.9844L3.42188 13.4062L4.82812 12L9 16.1719Z" fill="#01080E"></path>
+            </svg>
+        </svg>
+    ` // adiciona o conteúdo SVG ao elemento svg
+
+    const p = document.createElement('p'); // cria um elemento p
+    p.textContent = tarefa.descricao; // adiciona a descrição da tarefa ao elemento p
+
+    const button = document.createElement('button'); // cria um elemento button
+    const imagemButton = document.createElement('img'); // cria um elemento img
+    imagemButton.setAttribute('src', '/imagens/edit.png'); // adiciona o atributo src ao elemento img
+
+    button.append(imagemButton); // adiciona o elemento img ao elemento button
+
+    li.append(svg, p, button); // adiciona os elementos svg, p e button ao elemento li
+}
+
 // função que alterna a visibilidade do formulário de adicionar tarefa
 botaoAddTarefa.addEventListener('click', () => { // quando o botão de adicionar tarefa for clicado, faça:
     formAddTarefa.classList.toggle('hidden'); // alterna a visibilidade do formulário de adicionar tarefa
