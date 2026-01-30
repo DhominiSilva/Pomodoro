@@ -19,4 +19,6 @@ formAddTarefa.addEventListener('submit', (evento) => { // quando o formulário d
     }
     tarefas.push(tarefa); // adiciona a tarefa ao array de tarefas
     localStorage.setItem('tarefas', JSON.stringify(tarefas)); // salva o array de tarefas no localStorage (armazenar dados não sensiveis no navegador do usuário)
+    // sessionStorage.setItem('tarefas', JSON.stringify(tarefas)); // salva o array de tarefas no sessionStorage (armazenar dados temporarios no navegador do usuário)
+    // cookieStore.set('tarefas', JSON.stringify(tarefas)); // salva o array de tarefas nos cookies (armazenar dados no navegador do usuário com data de expiração)
 })
