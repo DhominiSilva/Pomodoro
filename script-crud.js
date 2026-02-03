@@ -27,6 +27,11 @@ function criarElementoTarefa(tarefa){ // função para criar um elemento de tare
     const button = document.createElement('button'); // cria um elemento button
     button.classList.add('app_button-edit'); // adiciona a classe ao elemento button
 
+    button.onclick = () => { // quando o botão for clicado, faça:
+        const novaDesc = prompt('Edite sua tarefa:', p.textContent); // abre um prompt para editar a tarefa
+        p.textContent = novaDesc; // atualiza o texto do elemento p com a nova descrição
+    }
+
     const imagemButton = document.createElement('img'); // cria um elemento img
     imagemButton.setAttribute('src', '/imagens/edit.png'); // adiciona o atributo src ao elemento img
     button.append(imagemButton); // adiciona o elemento img ao elemento button
