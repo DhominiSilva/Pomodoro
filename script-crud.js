@@ -7,6 +7,10 @@ const ulTarefas = document.querySelector('.app__section-task-list'); // estou se
 
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || []; // recupera as tarefas do localStorage ou inicializa um array vazio
 
+function atualizarTarefasNoStorage(){ // função para atualizar as tarefas no localStorage
+    localStorage.setItem('tarefas', JSON.stringify(tarefas)); // salva o array de tarefas no localStorage
+}
+
 function criarElementoTarefa(tarefa){ // função para criar um elemento de tarefa
     const li = document.createElement('li'); // cria um elemento li
     li.classList.add('app__section-task-list-item'); // adiciona a classe ao elemento li
@@ -30,6 +34,8 @@ function criarElementoTarefa(tarefa){ // função para criar um elemento de tare
     button.onclick = () => { // quando o botão for clicado, faça:
         const novaDesc = prompt('Edite sua tarefa:', p.textContent); // abre um prompt para editar a tarefa
         p.textContent = novaDesc; // atualiza o texto do elemento p com a nova descrição
+        tarefa.descricao = novaDesc; // atualiza a descrição da tarefa no array de tarefas
+        atualizarTarefasNoStorage(); // atualiza as tarefas no localStorage
     }
 
     const imagemButton = document.createElement('img'); // cria um elemento img
@@ -59,7 +65,7 @@ formAddTarefa.addEventListener('submit', (evento) => { // quando o formulário d
     ulTarefas.append(elementoTarefa); // adiciona o elemento de tarefa à lista de tarefas
     textarea.value = ''; // limpa o textarea
     formAddTarefa.classList.add('hidden'); // esconde o formulário de adicionar tarefa
-    localStorage.setItem('tarefas', JSON.stringify(tarefas)); // salva o array de tarefas no localStorage (armazenar dados não sensiveis no navegador do usuário)
+    atualizarTarefasNoStorage(); // atualiza as tarefas no localStorage
 })
 
 tarefas.forEach(tarefa => { // para cada tarefa no array de tarefas, faça:
