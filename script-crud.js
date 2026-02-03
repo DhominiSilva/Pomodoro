@@ -32,7 +32,10 @@ function criarElementoTarefa(tarefa){ // função para criar um elemento de tare
     button.classList.add('app_button-edit'); // adiciona a classe ao elemento button
 
     button.onclick = () => { // quando o botão for clicado, faça:
+        // debugger; // serve para debugar o código pelo navegador
         const novaDesc = prompt('Edite sua tarefa:', p.textContent); // abre um prompt para editar a tarefa
+        console.log("Nova descrição da tarefa: " + novaDesc);
+        if (novaDesc === null || novaDesc.trim() === '') return; // se a nova descrição for nula ou vazia, retorna
         p.textContent = novaDesc; // atualiza o texto do elemento p com a nova descrição
         tarefa.descricao = novaDesc; // atualiza a descrição da tarefa no array de tarefas
         atualizarTarefasNoStorage(); // atualiza as tarefas no localStorage
