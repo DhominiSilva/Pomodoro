@@ -4,6 +4,7 @@ const botaoAddTarefa = document.querySelector('.app__button--add-task'); // esto
 const formAddTarefa = document.querySelector('.app__form-add-task'); // estou selecionando o formulário de adicionar tarefa
 const textarea = document.querySelector('.app__form-textarea'); // estou selecionando o textarea do formulário
 const ulTarefas = document.querySelector('.app__section-task-list'); // estou selecionando a lista de tarefas
+const paragrafoDescTarefa = document.querySelector('.app__section-active-task-description'); // estou selecionando o parágrafo da descrição da tarefa
 
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || []; // recupera as tarefas do localStorage ou inicializa um array vazio
 
@@ -34,7 +35,7 @@ function criarElementoTarefa(tarefa){ // função para criar um elemento de tare
     button.onclick = () => { // quando o botão for clicado, faça:
         // debugger; // serve para debugar o código pelo navegador
         const novaDesc = prompt('Edite sua tarefa:', p.textContent); // abre um prompt para editar a tarefa
-        console.log("Nova descrição da tarefa: " + novaDesc);
+        // console.log("Nova descrição da tarefa: " + novaDesc); // exibe a nova descrição da tarefa no console
         if (novaDesc === null || novaDesc.trim() === '') return; // se a nova descrição for nula ou vazia, retorna
         p.textContent = novaDesc; // atualiza o texto do elemento p com a nova descrição
         tarefa.descricao = novaDesc; // atualiza a descrição da tarefa no array de tarefas
@@ -46,6 +47,11 @@ function criarElementoTarefa(tarefa){ // função para criar um elemento de tare
     button.append(imagemButton); // adiciona o elemento img ao elemento button
 
     li.append(svg, p, button); // adiciona os elementos svg, p e button ao elemento li
+
+    li.onclick = () => { // quando o elemento li for clicado, faça:
+        paragrafoDescTarefa.textContent = tarefa.descricao; // atualiza o texto do parágrafo da descrição da tarefa com a descrição da tarefa clicada
+        li.classList.add('app__section-task-list-item-active'); // adiciona a classe de item ativo ao elemento li
+    }
 
     return li; // retorna o elemento li
 }
