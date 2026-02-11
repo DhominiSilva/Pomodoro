@@ -70,6 +70,11 @@ const contagemRegressiva = () => { // função que realiza a contagem regressiva
   if(tempoDecorridoSegundos <= 0){ 
     audioFim.play(); // reproduz o som de fim
     alert("Tempo esgotado!"); // exibe uma mensagem de tempo esgotado
+    const focoAtivado = html.getAttribute('data-contexto') === 'foco'; // verifica se o contexto atual é foco
+    if(focoAtivado){ // se o contexto for foco, faça:
+      const evento = new CustomEvent('focoFinalizado'); // cria um evento personalizado de foco esgotado
+      document.dispatchEvent(evento); // dispara o evento personalizado
+    }
     zerar(); // chama a função zerar
     return; // retorna a função
   };
