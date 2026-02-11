@@ -7,6 +7,7 @@ const ulTarefas = document.querySelector('.app__section-task-list'); // estou se
 const paragrafoDescTarefa = document.querySelector('.app__section-active-task-description'); // estou selecionando o parágrafo da descrição da tarefa
 
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || []; // recupera as tarefas do localStorage ou inicializa um array vazio
+let tarefaSelecionada = null; // variável para armazenar a tarefa selecionada atualmente
 
 function atualizarTarefasNoStorage(){ // função para atualizar as tarefas no localStorage
     localStorage.setItem('tarefas', JSON.stringify(tarefas)); // salva o array de tarefas no localStorage
@@ -49,7 +50,26 @@ function criarElementoTarefa(tarefa){ // função para criar um elemento de tare
     li.append(svg, p, button); // adiciona os elementos svg, p e button ao elemento li
 
     li.onclick = () => { // quando o elemento li for clicado, faça:
+
+        document.querySelectorAll('.app__section-task-list-item-active') // remove a classe de item ativo de todos os elementos li
+            .forEach(
+                elemento => { elemento.classList.remove('app__section-task-list-item-active')
+        }); 
+
+        if(tarefaSelecionada === tarefa) { // se a tarefa clicada for a mesma que já está selecionada, retorna
+            paragrafoDescTarefa.textContent = ''; // limpa o texto do parágrafo da descrição da tarefa
+            tarefaSelecionada = null; // desmarca a tarefa selecionada
+            li.classList.remove('app__section-task-list-item-active'); // remove a classe de item ativo do elemento li
+            return
+        }
+
+        tarefaSelecionada = tarefa; // atualiza a tarefa selecionada com a tarefa clicada
         paragrafoDescTarefa.textContent = tarefa.descricao; // atualiza o texto do parágrafo da descrição da tarefa com a descrição da tarefa clicada
+        document.querySelectorAll('.app__section-task-list-item-active') // remove a classe de item ativo de todos os elementos li
+            .forEach(
+                elemento => { elemento.classList.remove('app__section-task-list-item-active')
+        });
+        
         li.classList.add('app__section-task-list-item-active'); // adiciona a classe de item ativo ao elemento li
     }
 
