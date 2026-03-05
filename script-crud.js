@@ -65,10 +65,6 @@ function criarElementoTarefa(tarefa){ // função para criar um elemento de tare
 
         tarefaSelecionada = tarefa; // atualiza a tarefa selecionada com a tarefa clicada
         paragrafoDescTarefa.textContent = tarefa.descricao; // atualiza o texto do parágrafo da descrição da tarefa com a descrição da tarefa clicada
-        document.querySelectorAll('.app__section-task-list-item-active') // remove a classe de item ativo de todos os elementos li
-            .forEach(
-                elemento => { elemento.classList.remove('app__section-task-list-item-active')
-        });
         
         li.classList.add('app__section-task-list-item-active'); // adiciona a classe de item ativo ao elemento li
     }
