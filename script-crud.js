@@ -8,6 +8,7 @@ const paragrafoDescTarefa = document.querySelector('.app__section-active-task-de
 
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || []; // recupera as tarefas do localStorage ou inicializa um array vazio
 let tarefaSelecionada = null; // variável para armazenar a tarefa selecionada atualmente
+let liTarefaSelecionada = null; // variável para armazenar o elemento li da tarefa selecionada atualmente
 
 function atualizarTarefasNoStorage(){ // função para atualizar as tarefas no localStorage
     localStorage.setItem('tarefas', JSON.stringify(tarefas)); // salva o array de tarefas no localStorage
@@ -56,7 +57,7 @@ function criarElementoTarefa(tarefa){ // função para criar um elemento de tare
                 elemento => { elemento.classList.remove('app__section-task-list-item-active')
         }); 
 
-        if(tarefaSelecionada === tarefa) { // se a tarefa clicada for a mesma que já está selecionada, retorna
+        if(tarefaSelecionada == tarefa) { // se a tarefa clicada for a mesma que já está selecionada, retorna
             paragrafoDescTarefa.textContent = ''; // limpa o texto do parágrafo da descrição da tarefa
             tarefaSelecionada = null; // desmarca a tarefa selecionada
             li.classList.remove('app__section-task-list-item-active'); // remove a classe de item ativo do elemento li
@@ -64,6 +65,7 @@ function criarElementoTarefa(tarefa){ // função para criar um elemento de tare
         }
 
         tarefaSelecionada = tarefa; // atualiza a tarefa selecionada com a tarefa clicada
+        liTarefaSelecionada = li; // atualiza o elemento li da tarefa selecionada com o elemento li clicado
         paragrafoDescTarefa.textContent = tarefa.descricao; // atualiza o texto do parágrafo da descrição da tarefa com a descrição da tarefa clicada
         
         li.classList.add('app__section-task-list-item-active'); // adiciona a classe de item ativo ao elemento li
@@ -96,4 +98,12 @@ formAddTarefa.addEventListener('submit', (evento) => { // quando o formulário d
 tarefas.forEach(tarefa => { // para cada tarefa no array de tarefas, faça:
     const elementoTarefa = criarElementoTarefa(tarefa); // cria um elemento de tarefa
     ulTarefas.append(elementoTarefa); // adiciona o elemento de tarefa à lista de tarefas
+});
+
+document.addEventListener('focoFinalizado', () => { // quando o evento personalizado de foco esgotado for disparado, faça:
+    if (tarefaSelecionada && liTarefaSelecionada) { // se houver uma tarefa selecionada e o elemento li correspondente, faça:
+        liTarefaSelecionada.classList.remove('app__section-task-list-item-active'); // remove a classe de item ativo do elemento li da tarefa selecionada
+        liTarefaSelecionada.classList.add('app__section-task-list-item-complete'); // adiciona a classe de item concluído ao elemento li da tarefa selecionada
+        liTarefaSelecionada.querySelector('button').setAttribute('disabled', 'disabled'); // desabilita o botão de editar da tarefa selecionada
+    }
 });

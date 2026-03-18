@@ -11,7 +11,7 @@ const iniciarOuPausarBt = document.querySelector('#start-pause span'); // estou 
 const audioPlay = new Audio('./sons/play.wav'); // estou selecionando o som de play
 const tempoNaTela = document.querySelector('#timer');
 const audioPause = new Audio('./sons/pause.mp3'); // estou selecionando o som de pause
-const audioFim = new Audio('./sons/beep.mp3'); // estou selecionando o som de fim
+const audioFim = new Audio('./sons/beep.mp30'); // estou selecionando o som de fim
 const imagemBotao = document.querySelector('.app__card-primary-butto-icon');
 const musica = new Audio('./sons/luna-rise-part-one.mp3'); // estou selecionando a música
 
@@ -28,7 +28,7 @@ musicaFocoInput.addEventListener('change', () => { // quando o input de música 
 });
 
 focoBt.addEventListener('click', () => { // quando o botão de foco for clicado, faça:
-  tempoDecorridoSegundos = 1500;
+  tempoDecorridoSegundos = 1;
   alterarContexto('foco'); // chame a função alterarContexto
   focoBt.classList.add('active'); // adiciona a classe active ao botão de foco
 });
