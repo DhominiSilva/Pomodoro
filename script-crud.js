@@ -50,26 +50,32 @@ function criarElementoTarefa(tarefa){ // função para criar um elemento de tare
 
     li.append(svg, p, button); // adiciona os elementos svg, p e button ao elemento li
 
-    li.onclick = () => { // quando o elemento li for clicado, faça:
-
-        document.querySelectorAll('.app__section-task-list-item-active') // remove a classe de item ativo de todos os elementos li
-            .forEach(
-                elemento => { elemento.classList.remove('app__section-task-list-item-active')
-        }); 
-
-        if(tarefaSelecionada == tarefa) { // se a tarefa clicada for a mesma que já está selecionada, retorna
-            paragrafoDescTarefa.textContent = ''; // limpa o texto do parágrafo da descrição da tarefa
-            tarefaSelecionada = null; // desmarca a tarefa selecionada
-            li.classList.remove('app__section-task-list-item-active'); // remove a classe de item ativo do elemento li
-            return
+    if(tarefa.completa){
+        li.classList.add('app__section-task-list-item-complete'); // adiciona a classe de item concluído ao elemento li da tarefa selecionada
+        button.setAttribute('disabled', 'disabled'); // desabilita o botão de editar da tarefa selecionada
+    }else{
+        li.onclick = () => { // quando o elemento li for clicado, faça:
+    
+            document.querySelectorAll('.app__section-task-list-item-active') // remove a classe de item ativo de todos os elementos li
+                .forEach(
+                    elemento => { elemento.classList.remove('app__section-task-list-item-active')
+            }); 
+    
+            if(tarefaSelecionada == tarefa) { // se a tarefa clicada for a mesma que já está selecionada, retorna
+                paragrafoDescTarefa.textContent = ''; // limpa o texto do parágrafo da descrição da tarefa
+                tarefaSelecionada = null; // desmarca a tarefa selecionada
+                li.classList.remove('app__section-task-list-item-active'); // remove a classe de item ativo do elemento li
+                return
+            }
+    
+            tarefaSelecionada = tarefa; // atualiza a tarefa selecionada com a tarefa clicada
+            liTarefaSelecionada = li; // atualiza o elemento li da tarefa selecionada com o elemento li clicado
+            paragrafoDescTarefa.textContent = tarefa.descricao; // atualiza o texto do parágrafo da descrição da tarefa com a descrição da tarefa clicada
+            
+            li.classList.add('app__section-task-list-item-active'); // adiciona a classe de item ativo ao elemento li
         }
-
-        tarefaSelecionada = tarefa; // atualiza a tarefa selecionada com a tarefa clicada
-        liTarefaSelecionada = li; // atualiza o elemento li da tarefa selecionada com o elemento li clicado
-        paragrafoDescTarefa.textContent = tarefa.descricao; // atualiza o texto do parágrafo da descrição da tarefa com a descrição da tarefa clicada
-        
-        li.classList.add('app__section-task-list-item-active'); // adiciona a classe de item ativo ao elemento li
     }
+
 
     return li; // retorna o elemento li
 }
@@ -105,5 +111,7 @@ document.addEventListener('focoFinalizado', () => { // quando o evento personali
         liTarefaSelecionada.classList.remove('app__section-task-list-item-active'); // remove a classe de item ativo do elemento li da tarefa selecionada
         liTarefaSelecionada.classList.add('app__section-task-list-item-complete'); // adiciona a classe de item concluído ao elemento li da tarefa selecionada
         liTarefaSelecionada.querySelector('button').setAttribute('disabled', 'disabled'); // desabilita o botão de editar da tarefa selecionada
+        tarefaSelecionada.completa = true; // marca a tarefa selecionada como concluída
+        atualizarTarefas()
     }
 });
